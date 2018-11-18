@@ -25,6 +25,7 @@ class ViewController: UIViewController{
     
     var changeEur : Double = 0
     var changeDollar : Double = 0
+    let todayString = Date().description(with: .current)
     
     //MARK: - Override functions
     /***************************************************************/
@@ -38,6 +39,7 @@ class ViewController: UIViewController{
     //Set up at the beggining
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         getMoneyData(url: baseURL)
         
         textField.keyboardType = UIKeyboardType.decimalPad
@@ -109,8 +111,8 @@ class ViewController: UIViewController{
             response in
             if response.result.isSuccess {
                 //GOT THE DATA FROM INTERNET
-                
                 self.loadingLabel.text = ""
+                
                 self.updateMoneyData(json: JSON(response.result.value!))
                 
                 self.updateLabel.text = "Last update:  Now"
@@ -118,14 +120,26 @@ class ViewController: UIViewController{
             } else {
                 //NO INTERNET
                 self.loadingLabel.text = "Offline mode"
-                
-                let lastValue : Double = defaults.double(forKey: "lastValue")
   
-                self.updateValues(moneyValue: lastValue)
+                self.updateValues(moneyValue: defaults.double(forKey: "lastValue"))
                 
-                print("Error: \(String(describing: response.result.error))")
+                let dateString = defaults.string(forKey: "lastDate")
                 
-                self.updateLabel.text = "Last update:  Later today"
+                DateFormatter().dateFormat = "yyyy-MM-dd"
+                let lastDate = DateFormatter().date(from: dateString!)
+                let todayDate = DateFormatter().date(from: self.todayString)
+                
+                if lastDate == todayDate {
+                    
+                    self.updateLabel.text = "Last update: Sooner today"
+                    
+                }else{
+                    
+                    self.updateLabel.text = "Last update: One day or more"
+                    
+                }
+                
+                
             }
         }
     }
@@ -137,7 +151,9 @@ class ViewController: UIViewController{
         
         if json["success"] == true{
             
-            defaults.set((json["rates"]["CAD"].doubleValue), forKey: "lastValue")
+            //Save MONEY value
+            defaults.set(json["rates"]["CAD"].doubleValue, forKey: "lastValue")
+            //Save DAY value
             defaults.set(json["date"].stringValue, forKey: "lastDate")
             
             updateValues(moneyValue: (json["rates"]["CAD"].doubleValue))
@@ -155,9 +171,6 @@ class ViewController: UIViewController{
         changeDollar = moneyValue
       
         rateLabel.text = "Courrent rate:  \((moneyValue*1000).rounded()/1000)"
-        
-//        let lastDate : String = defaults.object(forKey: "lastDate") as! String
-//        updateLabel.text = "Last update:  \(lastDate)"
 
     }
     
