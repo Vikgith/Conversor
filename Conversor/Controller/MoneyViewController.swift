@@ -25,8 +25,6 @@ class ViewController: UIViewController{
     
     var changeEur : Double = 0
     var changeDollar : Double = 0
-    var date : String = ""
-    var valueCAD : Double = 0
     
     //MARK: - Override functions
     /***************************************************************/
@@ -121,9 +119,9 @@ class ViewController: UIViewController{
                 //NO INTERNET
                 self.loadingLabel.text = "Offline mode"
                 
-                let lastValue2 : Double = defaults.object(forKey: "lastValue") as! Double
+                let lastValue : Double = defaults.double(forKey: "lastValue")
   
-                self.updateValues(moneyValue: lastValue2)
+                self.updateValues(moneyValue: lastValue)
                 
                 print("Error: \(String(describing: response.result.error))")
                 
@@ -132,28 +130,24 @@ class ViewController: UIViewController{
         }
     }
 
-    //MARK: - JSON Parsing
+    //MARK: - JSON Parsing //At the beggining if you have internet
     /***************************************************************/
 
     func updateMoneyData(json : JSON) {
         
         if json["success"] == true{
             
-            valueCAD = json["rates"]["CAD"].doubleValue
+            defaults.set((json["rates"]["CAD"].doubleValue), forKey: "lastValue")
+            defaults.set(json["date"].stringValue, forKey: "lastDate")
             
-            date = json["date"].stringValue
-            
-            defaults.set(valueCAD, forKey: "lastValue")
-            defaults.set(date, forKey: "lastDate")
-            
-            updateValues(moneyValue: valueCAD)
+            updateValues(moneyValue: (json["rates"]["CAD"].doubleValue))
             
         }else {
             print("Error connection")
         }
     }
     
-    //MARK: - Set value function
+    //MARK: - Set value function //At the beggining
     /***************************************************************/
     
     func updateValues(moneyValue : Double) {
@@ -162,8 +156,8 @@ class ViewController: UIViewController{
       
         rateLabel.text = "Courrent rate:  \((moneyValue*1000).rounded()/1000)"
         
-//        let lastDate2 : String = defaults.object(forKey: "lastDate") as! String
-//        updateLabel.text = "Last update:  \(lastDate2)"
+//        let lastDate : String = defaults.object(forKey: "lastDate") as! String
+//        updateLabel.text = "Last update:  \(lastDate)"
 
     }
     
