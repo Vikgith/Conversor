@@ -47,7 +47,8 @@ class ViewController: UIViewController{
         SVProgressHUD.setCornerRadius(25)
         SVProgressHUD.setBorderWidth(5)
         
-        textField.text = "1"
+        textField.text = defaults.string(forKey: "lastTextField")
+        moneyLabel.text = defaults.string(forKey: "LastMoneyLabel")
                 
     }
 
@@ -63,10 +64,12 @@ class ViewController: UIViewController{
     
     @IBAction func changeToEur(_ sender: UIButton){
         convert(type: changeEur, symbol: "€")
+        defaults.set(textField.text, forKey: "lastTextField")
     }
     
     @IBAction func changeToDollar(_ sender: UIButton){
         convert(type: changeDollar, symbol: "$")
+        defaults.set(textField.text, forKey: "lastTextField")
     }
     
     //MARK: - Convert money function
@@ -91,13 +94,15 @@ class ViewController: UIViewController{
             
             moneyLabel.text = priceString
             
+            defaults.set(moneyLabel.text, forKey: "LastMoneyLabel")
+            
         }else {
             SVProgressHUD.showError(withStatus: "Please insert value")
             SVProgressHUD.dismiss(withDelay: 0.7)
         }
     }
     
-    //MARK: - Networking, Alamofire
+    //MARK: - Networking, Alamofire (Automatically at the beggining)
     /***************************************************************/
 
     func getMoneyData(url: String) {
@@ -106,8 +111,11 @@ class ViewController: UIViewController{
             response in
             if response.result.isSuccess {
                 //GOT THE DATA FROM INTERNET
+                
                 self.loadingLabel.text = ""
                 self.updateMoneyData(json: JSON(response.result.value!))
+                
+                self.updateLabel.text = "Last update:  Now"
 
             } else {
                 //NO INTERNET
@@ -118,6 +126,8 @@ class ViewController: UIViewController{
                 self.updateValues(moneyValue: lastValue2)
                 
                 print("Error: \(String(describing: response.result.error))")
+                
+                self.updateLabel.text = "Last update:  Later today"
             }
         }
     }
@@ -130,6 +140,7 @@ class ViewController: UIViewController{
         if json["success"] == true{
             
             valueCAD = json["rates"]["CAD"].doubleValue
+            
             date = json["date"].stringValue
             
             defaults.set(valueCAD, forKey: "lastValue")
@@ -148,11 +159,11 @@ class ViewController: UIViewController{
     func updateValues(moneyValue : Double) {
         changeEur = 1/moneyValue
         changeDollar = moneyValue
+      
+        rateLabel.text = "Courrent rate:  \((moneyValue*1000).rounded()/1000)"
         
-        let lastDate2 : String = defaults.object(forKey: "lastDate") as! String
-        
-        rateLabel.text = "Courrent rate:  \(moneyValue)"
-        updateLabel.text = "Last update:  \(lastDate2)"
+//        let lastDate2 : String = defaults.object(forKey: "lastDate") as! String
+//        updateLabel.text = "Last update:  \(lastDate2)"
 
     }
     
