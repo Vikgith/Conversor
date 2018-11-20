@@ -20,7 +20,7 @@ class ViewController: UIViewController{
     //MARK: - Variables and Constants
     /***************************************************************/
     
-    let APIKey = "02a9b6250b52e3c537cda831062b4f10"
+    //API Key = "02a9b6250b52e3c537cda831062b4f10"
     let baseURL = "http://data.fixer.io/api/latest?access_key=02a9b6250b52e3c537cda831062b4f10&symbols=CAD"
     
     var changeEur : Double = 0
@@ -33,23 +33,23 @@ class ViewController: UIViewController{
     //Keyboard appear at the beggining
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        //Type of keyboard
+        textField.keyboardType = UIKeyboardType.decimalPad
+        //Appear at the beggining
         textField.becomeFirstResponder()
     }
     
     //Set up at the beggining
     override func viewDidLoad() {
         super.viewDidLoad()
+        SVProgressHUD.show()
         
+        //Get the data from internet
         getMoneyData(url: baseURL)
         
-        textField.keyboardType = UIKeyboardType.decimalPad
-        
-        SVProgressHUD.setCornerRadius(25)
-        SVProgressHUD.setBorderWidth(5)
-        
+        //Put in the screen the last values saved
         textField.text = defaults.string(forKey: "lastTextField")
         moneyLabel.text = defaults.string(forKey: "LastMoneyLabel")
-        
         
     }
 
@@ -62,7 +62,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var updateLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
     @IBOutlet weak var loadingLabel: UILabel!
-    @IBOutlet var mainView: UIView!
+    @IBOutlet var totalView: UIView!
     
     @IBAction func changeBut(_ sender: UIButton) {
         //Save the last value in the textField
@@ -79,10 +79,7 @@ class ViewController: UIViewController{
             convert(type: changeDollar, symbol: "$")
         }
     }
-    
-    
-    
-    
+
     //MARK: - Convert money function
     /***************************************************************/
     
@@ -101,16 +98,16 @@ class ViewController: UIViewController{
         
         //Round the number to 2 decimal digits
         if var priceText = Double(textField.text!){
-            priceText = (priceText * type * 100).rounded()/100
+            priceText = priceText * type
         
             let priceString = currencyFormatter.string(from: priceText as NSNumber)
-            
             
             moneyLabel.text = priceString
             
             defaults.set(moneyLabel.text, forKey: "LastMoneyLabel")
             
         }else {
+            totalView.shake()
             SVProgressHUD.showError(withStatus: "Please insert value")
             SVProgressHUD.dismiss(withDelay: 0.7)
         }
@@ -126,6 +123,7 @@ class ViewController: UIViewController{
             if response.result.isSuccess {
                 //GOT THE DATA FROM INTERNET
                 self.loadingLabel.text = ""
+                SVProgressHUD.dismiss()
                 
                 self.updateMoneyData(json: JSON(response.result.value!))
                 
@@ -134,6 +132,7 @@ class ViewController: UIViewController{
             } else {
                 //NO INTERNET
                 self.loadingLabel.text = "Offline mode"
+                SVProgressHUD.dismiss()
   
                 self.updateValues(moneyValue: defaults.double(forKey: "lastValue"))
                 
@@ -178,8 +177,7 @@ class ViewController: UIViewController{
         changeEur = 1/moneyValue
         changeDollar = moneyValue
       
-        rateLabel.text = "Courrent rate:  \((moneyValue*1000).rounded()/1000)"
-
+        rateLabel.text = "Courrent rate:  \((moneyValue).roundWithDecimal(decimals: 4))"
     }
     
 }

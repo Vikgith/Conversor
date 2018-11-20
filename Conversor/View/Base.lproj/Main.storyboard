@@ -153,10 +153,10 @@
                     </view>
                     <connections>
                         <outlet property="loadingLabel" destination="uJB-h8-9Fo" id="kbL-Qh-ho9"/>
-                        <outlet property="mainView" destination="8bC-Xf-vdC" id="CK6-8u-LBM"/>
                         <outlet property="moneyLabel" destination="oNd-AI-h1G" id="IVg-Zq-UXh"/>
                         <outlet property="rateLabel" destination="pv0-OJ-hga" id="QDL-C3-Kb7"/>
                         <outlet property="textField" destination="g5f-Cb-xU2" id="Kpa-ti-Q9L"/>
+                        <outlet property="totalView" destination="8bC-Xf-vdC" id="bhR-3N-tlh"/>
                         <outlet property="updateLabel" destination="RpO-xK-GYX" id="Eq7-9g-qii"/>
                     </connections>
                 </viewController>
