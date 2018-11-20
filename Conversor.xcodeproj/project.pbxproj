@@ -13,6 +13,7 @@
 		EF086729219C799F00D6C99A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF086727219C799F00D6C99A /* Main.storyboard */; };
 		EF08672B219C79A000D6C99A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF08672A219C79A000D6C99A /* Assets.xcassets */; };
 		EF08672E219C79A000D6C99A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF08672C219C79A000D6C99A /* LaunchScreen.storyboard */; };
+		EF6906A021A3AE6B0064B3AC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69069F21A3AE6B0064B3AC /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		EF08672A219C79A000D6C99A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF08672D219C79A000D6C99A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF08672F219C79A000D6C99A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF69069F21A3AE6B0064B3AC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,12 +80,21 @@
 		EF086722219C799F00D6C99A /* Conversor */ = {
 			isa = PBXGroup;
 			children = (
+				EF6906A121A3AE9B0064B3AC /* Helper */,
 				EFA03AED219F395C009110C3 /* View */,
 				EFA03AEE219F396C009110C3 /* Controller */,
 				EF08672A219C79A000D6C99A /* Assets.xcassets */,
 				EF08672F219C79A000D6C99A /* Info.plist */,
 			);
 			path = Conversor;
+			sourceTree = "<group>";
+		};
+		EF6906A121A3AE9B0064B3AC /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				EF69069F21A3AE6B0064B3AC /* Extensions.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		EFA03AED219F395C009110C3 /* View */ = {
@@ -231,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF086726219C799F00D6C99A /* MoneyViewController.swift in Sources */,
+				EF6906A021A3AE6B0064B3AC /* Extensions.swift in Sources */,
 				EF086724219C799F00D6C99A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

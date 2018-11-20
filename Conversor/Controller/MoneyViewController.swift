@@ -49,7 +49,8 @@ class ViewController: UIViewController{
         
         textField.text = defaults.string(forKey: "lastTextField")
         moneyLabel.text = defaults.string(forKey: "LastMoneyLabel")
-                
+        
+        
     }
 
     
@@ -61,20 +62,14 @@ class ViewController: UIViewController{
     @IBOutlet weak var updateLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
     @IBOutlet weak var loadingLabel: UILabel!
-      
+    @IBOutlet var mainView: UIView!
+    
     @IBAction func changeBut(_ sender: UIButton) {
         //Save the last value in the textField
         defaults.set(textField.text, forKey: "lastTextField")
         
-        //Animate the buttons
-        sender.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)//How much it expands (0 much, 0.9 little)
-        UIView.animate(withDuration: 1.5, //Duration (Normal is 2)
-                       delay: 0, //Time to take to start the animation
-                       usingSpringWithDamping: CGFloat(0.2), //How much vibration (0.1 much, 1 little)
-                       initialSpringVelocity: CGFloat(10),//Makes it bigger in the beggining (normal 6,big100)
-                       options: UIView.AnimationOptions.allowUserInteraction,
-                       animations: { sender.transform = CGAffineTransform.identity },
-                       completion: { Void in()  } )
+        //Animate the button
+        sender.animate()
         
         //Separate the action depend on the button
         if sender.tag == 1 {
@@ -82,7 +77,6 @@ class ViewController: UIViewController{
         }else if sender.tag == 2{
             convert(type: changeDollar, symbol: "$")
         }
-        
     }
     
     
@@ -109,6 +103,7 @@ class ViewController: UIViewController{
             priceText = (priceText * type * 100).rounded()/100
         
             let priceString = currencyFormatter.string(from: priceText as NSNumber)
+            
             
             moneyLabel.text = priceString
             
