@@ -61,16 +61,30 @@ class ViewController: UIViewController{
     @IBOutlet weak var updateLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
     @IBOutlet weak var loadingLabel: UILabel!
-    
-    @IBAction func changeToEur(_ sender: UIButton){
-        convert(type: changeEur, symbol: "€")
+      
+    @IBAction func changeBut(_ sender: UIButton) {
+        
         defaults.set(textField.text, forKey: "lastTextField")
+        
+        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        UIView.animate(withDuration: 2.0,
+                       delay: 0,
+                       usingSpringWithDamping: CGFloat(0.20),
+                       initialSpringVelocity: CGFloat(6.0),
+                       options: UIView.AnimationOptions.allowUserInteraction,
+                       animations: { sender.transform = CGAffineTransform.identity },
+                       completion: { Void in()  } )
+        
+        if sender.tag == 1 {
+            convert(type: changeEur, symbol: "€")
+        }else if sender.tag == 2{
+            convert(type: changeDollar, symbol: "$")
+        }
+        
     }
     
-    @IBAction func changeToDollar(_ sender: UIButton){
-        convert(type: changeDollar, symbol: "$")
-        defaults.set(textField.text, forKey: "lastTextField")
-    }
+    
+    
     
     //MARK: - Convert money function
     /***************************************************************/
@@ -92,7 +106,17 @@ class ViewController: UIViewController{
         
             let priceString = currencyFormatter.string(from: priceText as NSNumber)
             
-            moneyLabel.text = priceString
+            let newText = (Double(textField.text!)!*100).rounded()/100
+            textField.text = "\(newText)"
+            
+            if symbol == "€" {
+                moneyLabel.text = "$\(newText) = \(priceString!)"
+            }else if symbol == "$" {
+                moneyLabel.text = "\(newText)€ = \(priceString!)"
+            }
+            
+            
+//            moneyLabel.text = priceString
             
             defaults.set(moneyLabel.text, forKey: "LastMoneyLabel")
             
