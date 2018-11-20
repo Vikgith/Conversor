@@ -63,18 +63,20 @@ class ViewController: UIViewController{
     @IBOutlet weak var loadingLabel: UILabel!
       
     @IBAction func changeBut(_ sender: UIButton) {
-        
+        //Save the last value in the textField
         defaults.set(textField.text, forKey: "lastTextField")
         
-        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-        UIView.animate(withDuration: 2.0,
-                       delay: 0,
-                       usingSpringWithDamping: CGFloat(0.20),
-                       initialSpringVelocity: CGFloat(6.0),
+        //Animate the buttons
+        sender.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)//How much it expands (0 much, 0.9 little)
+        UIView.animate(withDuration: 1.5, //Duration (Normal is 2)
+                       delay: 0, //Time to take to start the animation
+                       usingSpringWithDamping: CGFloat(0.2), //How much vibration (0.1 much, 1 little)
+                       initialSpringVelocity: CGFloat(10),//Makes it bigger in the beggining (normal 6,big100)
                        options: UIView.AnimationOptions.allowUserInteraction,
                        animations: { sender.transform = CGAffineTransform.identity },
                        completion: { Void in()  } )
         
+        //Separate the action depend on the button
         if sender.tag == 1 {
             convert(type: changeEur, symbol: "€")
         }else if sender.tag == 2{
@@ -91,32 +93,24 @@ class ViewController: UIViewController{
     
     func convert(type : Double, symbol : String){
         
-            let currencyFormatter = NumberFormatter()
-            currencyFormatter.usesGroupingSeparator = true
-            currencyFormatter.numberStyle = .currency
-            
-            if symbol == "€" {
-                currencyFormatter.locale = Locale(identifier: "es_ES")
-            }else if symbol == "$" {
-                currencyFormatter.locale = NSLocale.current
-            }
-            
+        //Set the formate of the number to $ or €
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        
+        if symbol == "€" {
+            currencyFormatter.locale = Locale(identifier: "es_ES")
+        }else if symbol == "$" {
+            currencyFormatter.locale = NSLocale.current
+        }
+        
+        //Round the number to 2 decimal digits
         if var priceText = Double(textField.text!){
             priceText = (priceText * type * 100).rounded()/100
         
             let priceString = currencyFormatter.string(from: priceText as NSNumber)
             
-            let newText = (Double(textField.text!)!*100).rounded()/100
-            textField.text = "\(newText)"
-            
-            if symbol == "€" {
-                moneyLabel.text = "$\(newText) = \(priceString!)"
-            }else if symbol == "$" {
-                moneyLabel.text = "\(newText)€ = \(priceString!)"
-            }
-            
-            
-//            moneyLabel.text = priceString
+            moneyLabel.text = priceString
             
             defaults.set(moneyLabel.text, forKey: "LastMoneyLabel")
             
@@ -154,16 +148,10 @@ class ViewController: UIViewController{
                 let todayDate = DateFormatter().date(from: self.todayString)
                 
                 if lastDate == todayDate {
-                    
-                    self.updateLabel.text = "Last update: Sooner today"
-                    
+                    self.updateLabel.text = "Last update: Earlier today"
                 }else{
-                    
                     self.updateLabel.text = "Last update: One day or more"
-                    
                 }
-                
-                
             }
         }
     }
