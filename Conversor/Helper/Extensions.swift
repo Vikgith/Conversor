@@ -65,10 +65,10 @@ extension UIView {
     }
 }
 
-//5 Types of animation: Animate, Pulsate, Flash, Shake, Zoom In
+//5 Types of animate a View: Animate, Pulsate, Flash, Shake, Zoom In
 extension UIView {
     
-    func animate() {
+    func boing() {
         self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)//How much it expands (0 much, 0.9 little)
         UIView.animate(withDuration: 1.5, //Duration (Normal is 2)
             delay: 0, //Time to take to start the animation
@@ -79,11 +79,6 @@ extension UIView {
             completion: { Void in()  } )
     }
     
-    /**
-     Simply zooming in of a view: set view scale to 0 and zoom to Identity on 'duration' time interval.
-     
-     - parameter duration: animation duration
-     */
     func zoomIn(duration: TimeInterval = 0.2) {
         self.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
         UIView.animate(withDuration: duration, delay: 0.0, options: [.curveLinear], animations: { () -> Void in

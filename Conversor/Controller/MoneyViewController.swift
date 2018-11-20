@@ -68,8 +68,9 @@ class ViewController: UIViewController{
         //Save the last value in the textField
         defaults.set(textField.text, forKey: "lastTextField")
         
-        //Animate the button
-        sender.animate()
+        //Animate Button & Label
+        moneyLabel.zoomIn()
+        sender.boing()
         
         //Separate the action depend on the button
         if sender.tag == 1 {
