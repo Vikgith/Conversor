@@ -74,7 +74,9 @@ extension UIView {
             completion: { Void in()  } )
     }
     
-    /** Zoom In the UIView */
+    /**Simply zooming in of a view: set view scale to Identity and zoom out to 0 on 'duration' time interval.
+     - parameter duration: animation duration
+     */
     func zoomIn(duration: TimeInterval = 0.2) {
         self.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
         UIView.animate(withDuration: duration, delay: 0.0, options: [.curveLinear], animations: { () -> Void in
@@ -129,24 +131,19 @@ extension UIView {
 }
 
 extension String {
-    /**Convert Date String to Date Object
-     - parameter withFormat: Format of the Date
-     */
-    func toDate() -> Date {
-        
-        DateFormatter().dateFormat = "yyyy-MM-dd"
-        let date = DateFormatter().date(from: self)!
+    func toDate(withFormat format: String = "yyyy-MM-dd") -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        guard let date = dateFormatter.date(from: self) else {
+            preconditionFailure("Take a look to your format")
+        }
         return date
-        
-//        guard let date = DateFormatter().date(from: self) else {
-//            preconditionFailure("Take a look to your format")
-//        }
     }
 }
 
 extension Double {
-    /**Round a number to 1,2,3 or 4 decimals. 2 Decimal by default
-     - parameter decimals:     number of decimals.
+    /**Round a number to 1,2,3 or 4 decimals. 2 Decimal by default.
+     - parameter decimals: number of decimals.
      */
     func roundWithDecimal(decimals : Int = 2) -> Double{
         
@@ -164,5 +161,25 @@ extension Double {
         }else{
             return 0
         }
+    }
+}
+
+extension Double {
+    /**Change the format from a Double value to a String in the currency selected (euro/dolar).
+     - parameter currency: The currency that you want to be the Double value.
+     */
+    func changeFormat (currency:String) -> String {
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.usesGroupingSeparator = true
+        numberFormatter.numberStyle = .currency
+        
+        if currency == "euro" {
+            numberFormatter.locale = Locale(identifier: "es_ES")
+        }else if currency == "dollar" {
+            numberFormatter.locale = NSLocale.current
+        }
+        
+        return numberFormatter.string(from: self as NSNumber)!
     }
 }

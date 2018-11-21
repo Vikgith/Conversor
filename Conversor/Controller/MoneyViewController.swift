@@ -23,8 +23,8 @@ class ViewController: UIViewController{
     //API Key = "02a9b6250b52e3c537cda831062b4f10"
     let baseURL = "http://data.fixer.io/api/latest?access_key=02a9b6250b52e3c537cda831062b4f10&symbols=CAD"
     
-    var changeEur : Double = 0
-    var changeDollar : Double = 0
+    var rateEUR : Double = 0
+    var rateDOLLAR : Double = 0
     let todayString = Date().description(with: .current)
     
     //MARK: - Override functions
@@ -74,40 +74,30 @@ class ViewController: UIViewController{
         
         //Separate the action depend on the button
         if sender.tag == 1 {
-            convert(type: changeEur, symbol: "€")
+            convert(rate: rateEUR, symbol: "euro")
         }else if sender.tag == 2{
-            convert(type: changeDollar, symbol: "$")
+            convert(rate: rateDOLLAR, symbol: "dollar")
         }
     }
 
     //MARK: - Convert money function
     /***************************************************************/
     
-    func convert(type : Double, symbol : String){
-        
-        //Set the formate of the number to $ or €
-        let currencyFormatter = NumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
-        
-        if symbol == "€" {
-            currencyFormatter.locale = Locale(identifier: "es_ES")
-        }else if symbol == "$" {
-            currencyFormatter.locale = NSLocale.current
-        }
-        
-        //Round the number to 2 decimal digits
+    func convert(rate : Double, symbol : String){
+
+        //Multiply the textfield to the current rate and change the current type text
         if var priceText = Double(textField.text!){
-            priceText = priceText * type
-        
-            let priceString = currencyFormatter.string(from: priceText as NSNumber)
+            priceText = priceText * rate
             
-            moneyLabel.text = priceString
+            moneyLabel.text = priceText.changeFormat(currency: symbol)
             
             defaults.set(moneyLabel.text, forKey: "LastMoneyLabel")
             
         }else {
+            moneyLabel.text = ""
+            
             totalView.shake()
+            
             SVProgressHUD.showError(withStatus: "Please insert value")
             SVProgressHUD.dismiss(withDelay: 0.7)
         }
@@ -134,15 +124,13 @@ class ViewController: UIViewController{
                 self.loadingLabel.text = "Offline mode"
                 SVProgressHUD.dismiss()
   
-                self.updateValues(moneyValue: defaults.double(forKey: "lastValue"))
+                self.updateValues(moneyRate: defaults.double(forKey: "lastValue"))
                 
                 let dateString = defaults.string(forKey: "lastDate")
                 
-                DateFormatter().dateFormat = "yyyy-MM-dd"
-                let lastDate = DateFormatter().date(from: dateString!)
-                let todayDate = DateFormatter().date(from: self.todayString)
+                let lastDate = dateString!.toDate()
                 
-                if lastDate == todayDate {
+                if lastDate < Date() {
                     self.updateLabel.text = "Last update: Earlier today"
                 }else{
                     self.updateLabel.text = "Last update: One day or more"
@@ -163,7 +151,7 @@ class ViewController: UIViewController{
             //Save DAY value
             defaults.set(json["date"].stringValue, forKey: "lastDate")
             
-            updateValues(moneyValue: (json["rates"]["CAD"].doubleValue))
+            updateValues(moneyRate: (json["rates"]["CAD"].doubleValue))
             
         }else {
             print("Error connection")
@@ -173,11 +161,11 @@ class ViewController: UIViewController{
     //MARK: - Set value function //At the beggining
     /***************************************************************/
     
-    func updateValues(moneyValue : Double) {
-        changeEur = 1/moneyValue
-        changeDollar = moneyValue
+    func updateValues(moneyRate : Double) {
+        rateEUR = 1/moneyRate
+        rateDOLLAR = moneyRate
       
-        rateLabel.text = "Courrent rate:  \((moneyValue).roundWithDecimal(decimals: 4))"
+        rateLabel.text = "Courrent rate:  \((moneyRate).roundWithDecimal(decimals: 4))"
     }
     
 }

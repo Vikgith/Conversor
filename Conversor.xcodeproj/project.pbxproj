@@ -14,7 +14,19 @@
 		EF08672B219C79A000D6C99A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF08672A219C79A000D6C99A /* Assets.xcassets */; };
 		EF08672E219C79A000D6C99A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF08672C219C79A000D6C99A /* LaunchScreen.storyboard */; };
 		EF6906A021A3AE6B0064B3AC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69069F21A3AE6B0064B3AC /* Extensions.swift */; };
+		EFBFBCB821A49FD1000F2328 /* ConversorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBFBCB721A49FD1000F2328 /* ConversorTests.swift */; };
+		EFBFBCC021A4A023000F2328 /* ConversorAppTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBFBCBF21A4A023000F2328 /* ConversorAppTexts.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EFBFBCBA21A49FD1000F2328 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF086718219C799F00D6C99A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF08671F219C799F00D6C99A;
+			remoteInfo = Conversor;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		05EB34FE764CE4E834F946E1 /* Pods_Conversor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Conversor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,6 +40,10 @@
 		EF08672D219C79A000D6C99A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF08672F219C79A000D6C99A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF69069F21A3AE6B0064B3AC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		EFBFBCB521A49FD1000F2328 /* ConversorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConversorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFBFBCB721A49FD1000F2328 /* ConversorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversorTests.swift; sourceTree = "<group>"; };
+		EFBFBCB921A49FD1000F2328 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EFBFBCBF21A4A023000F2328 /* ConversorAppTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversorAppTexts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +52,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B5E66DF6FFF616E0F42433B /* Pods_Conversor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFBFBCB221A49FD1000F2328 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				EF086722219C799F00D6C99A /* Conversor */,
+				EFBFBCB621A49FD1000F2328 /* ConversorTests */,
 				EF086721219C799F00D6C99A /* Products */,
 				D779456B9EBE16D38523D0E0 /* Pods */,
 				6806AD889B901EF7D90E1CD9 /* Frameworks */,
@@ -73,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				EF086720219C799F00D6C99A /* Conversor.app */,
+				EFBFBCB521A49FD1000F2328 /* ConversorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +140,16 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		EFBFBCB621A49FD1000F2328 /* ConversorTests */ = {
+			isa = PBXGroup;
+			children = (
+				EFBFBCB721A49FD1000F2328 /* ConversorTests.swift */,
+				EFBFBCBF21A4A023000F2328 /* ConversorAppTexts.swift */,
+				EFBFBCB921A49FD1000F2328 /* Info.plist */,
+			);
+			path = ConversorTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,6 +172,24 @@
 			productReference = EF086720219C799F00D6C99A /* Conversor.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EFBFBCB421A49FD1000F2328 /* ConversorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EFBFBCBE21A49FD1000F2328 /* Build configuration list for PBXNativeTarget "ConversorTests" */;
+			buildPhases = (
+				EFBFBCB121A49FD1000F2328 /* Sources */,
+				EFBFBCB221A49FD1000F2328 /* Frameworks */,
+				EFBFBCB321A49FD1000F2328 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EFBFBCBB21A49FD1000F2328 /* PBXTargetDependency */,
+			);
+			name = ConversorTests;
+			productName = ConversorTests;
+			productReference = EFBFBCB521A49FD1000F2328 /* ConversorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -149,6 +202,10 @@
 				TargetAttributes = {
 					EF08671F219C799F00D6C99A = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					EFBFBCB421A49FD1000F2328 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = EF08671F219C799F00D6C99A;
 					};
 				};
 			};
@@ -166,6 +223,7 @@
 			projectRoot = "";
 			targets = (
 				EF08671F219C799F00D6C99A /* Conversor */,
+				EFBFBCB421A49FD1000F2328 /* ConversorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -178,6 +236,13 @@
 				EF08672E219C79A000D6C99A /* LaunchScreen.storyboard in Resources */,
 				EF08672B219C79A000D6C99A /* Assets.xcassets in Resources */,
 				EF086729219C799F00D6C99A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFBFBCB321A49FD1000F2328 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +312,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EFBFBCB121A49FD1000F2328 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFBFBCC021A4A023000F2328 /* ConversorAppTexts.swift in Sources */,
+				EFBFBCB821A49FD1000F2328 /* ConversorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EFBFBCBB21A49FD1000F2328 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EF08671F219C799F00D6C99A /* Conversor */;
+			targetProxy = EFBFBCBA21A49FD1000F2328 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EF086727219C799F00D6C99A /* Main.storyboard */ = {
@@ -423,6 +505,46 @@
 			};
 			name = Release;
 		};
+		EFBFBCBC21A49FD1000F2328 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56H9G6QR55;
+				INFOPLIST_FILE = ConversorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.VicAlon.ConversorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Conversor.app/Conversor";
+			};
+			name = Debug;
+		};
+		EFBFBCBD21A49FD1000F2328 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56H9G6QR55;
+				INFOPLIST_FILE = ConversorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.VicAlon.ConversorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Conversor.app/Conversor";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -440,6 +562,15 @@
 			buildConfigurations = (
 				EF086733219C79A000D6C99A /* Debug */,
 				EF086734219C79A000D6C99A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EFBFBCBE21A49FD1000F2328 /* Build configuration list for PBXNativeTarget "ConversorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EFBFBCBC21A49FD1000F2328 /* Debug */,
+				EFBFBCBD21A49FD1000F2328 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
